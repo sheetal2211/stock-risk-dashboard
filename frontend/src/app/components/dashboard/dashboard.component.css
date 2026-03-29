@@ -1,0 +1,8 @@
+/* Dashboard-specific styles */
+.metric-card {
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+}
