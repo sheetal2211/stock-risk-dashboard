@@ -1,11 +1,11 @@
 FROM openjdk:21-jdk
 
-WORKDIR /backend
+WORKDIR /app
 
-COPY ./backend/target/stock-risk-dashboard.jar .
+COPY ./backend/target/stock-risk-backend-1.0.0.jar app.jar
 
-# Expose the application port (change if necessary)
-EXPOSE 8080:8080
+# Expose the application port
+EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "stock-risk-dashboard-1.0.0.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
