@@ -1,97 +1,21 @@
-/* Global Styles */
+/* Global CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
 body {
-  background-color: #0d1117;
-  color: #e6edf3;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
 }
 
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.4rem;
-}
-
-.card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-}
-
-.card-header {
-  background-color: #1c2128;
-  border-bottom: 1px solid #30363d;
-}
-
-.metric-card {
-  text-align: center;
-  padding: 1.5rem;
-}
-
-.metric-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #58a6ff;
-}
-
-.metric-label {
-  font-size: 0.85rem;
-  color: #8b949e;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.volatility-high { color: #f85149; }
-.volatility-medium { color: #e3b341; }
-.volatility-low { color: #3fb950; }
-
-.log-return-positive { color: #3fb950; }
-.log-return-negative { color: #f85149; }
-
-.price-chart-container {
-  height: 300px;
-  overflow-x: auto;
-}
-
-.search-input {
-  background-color: #0d1117;
-  border: 1px solid #30363d;
-  color: #e6edf3;
-  border-radius: 6px;
-}
-
-.search-input:focus {
-  background-color: #0d1117;
-  border-color: #58a6ff;
-  color: #e6edf3;
-  box-shadow: 0 0 0 0.25rem rgba(88, 166, 255, 0.25);
-}
-
-.btn-primary {
-  background-color: #238636;
-  border-color: #238636;
-}
-
-.btn-primary:hover {
-  background-color: #2ea043;
-  border-color: #2ea043;
-}
-
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-}
-
-.returns-table {
-  font-size: 0.875rem;
-}
-
-.returns-table td, .returns-table th {
-  border-color: #30363d;
-  color: #e6edf3;
-  background-color: transparent;
-}
-
-.badge-info {
-  background-color: #1f6feb;
+.container-fluid {
+  min-height: 100vh;
 }

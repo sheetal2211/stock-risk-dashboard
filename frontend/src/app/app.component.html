@@ -1,0 +1,107 @@
+<div class="container-fluid p-4">
+  <nav class="navbar navbar-dark bg-dark mb-4">
+    <span class="navbar-brand">
+      <h1>📈 {{ title }}</h1>
+    </span>
+  </nav>
+
+  <div class="row">
+    <!-- Search Section -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Search Stock</h5>
+
+          <div class="form-group mb-3">
+            <label for="stockInput">Stock Symbol</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="stockInput"
+              [(ngModel)]="searchQuery"
+              (keypress)="onKeyPress($event)"
+              placeholder="e.g., AAPL, MSFT, GOOGL"
+              autocomplete="off">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="periodSelect">Time Period</label>
+            <select
+              class="form-select"
+              id="periodSelect"
+              [(ngModel)]="selectedDays"
+              (change)="onPeriodChange(selectedDays)">
+              <option *ngFor="let opt of periodOptions" [value]="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </div>
+
+          <button
+            class="btn btn-primary btn-lg w-100 mb-2"
+            (click)="onSearch()"
+            [disabled]="isLoading">
+            {{ isLoading ? 'Loading...' : 'Search' }}
+          </button>
+
+          <button
+            class="btn btn-secondary w-100"
+            (click)="clearResults()">
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="col-md-8">
+      <!-- Error Message -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Fetching stock data...</p>
+      </div>
+
+      <!-- Metrics Display -->
+      <div *ngIf="metrics && !isLoading" class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">{{ metrics.symbol }}</h4>
+          <p class="text-muted">Period: {{ metrics.period }}</p>
+          <hr>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="metric-box p-3 rounded bg-light">
+                <p class="text-muted mb-1">Log Returns (%)</p>
+                <h3 class="metric-value">{{ metrics.logReturns | number:'1.2-2' }}%</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="metric-box p-3 rounded bg-light">
+                <p class="text-muted mb-1">Volatility (Annualized %)</p>
+                <h3 class="metric-value">{{ metrics.volatility | number:'1.2-2' }}%</h3>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <p class="text-muted small">
+            Last updated: {{ metrics.timestamp | date:'short' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div *ngIf="!metrics && !isLoading && !error" class="alert alert-info">
+        Search for a stock symbol to get started
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,53 +1,59 @@
 package com.stockrisk.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class StockMetrics {
-
     private String symbol;
-    private String companyName;
-    private double currentPrice;
-    private double volatility;          // annualized volatility (%)
-    private double averageLogReturn;    // average daily log return
-    private int period;                 // number of trading days analyzed
-    private List<Double> logReturns;
-    private List<String> dates;
-    private List<Double> closePrices;
-    private String error;
+    private double logReturns;           // percentage
+    private double volatility;           // annualized percentage
+    private String period;               // e.g., "252 days"
+    private LocalDateTime timestamp;
 
-    public StockMetrics() {}
-
-    public StockMetrics(String error) {
-        this.error = error;
+    public StockMetrics(String symbol, double logReturns, double volatility, String period, LocalDateTime timestamp) {
+        this.symbol = symbol;
+        this.logReturns = logReturns;
+        this.volatility = volatility;
+        this.period = period;
+        this.timestamp = timestamp;
     }
 
-    public String getSymbol() { return symbol; }
-    public void setSymbol(String symbol) { this.symbol = symbol; }
+    public String getSymbol() {
+        return symbol;
+    }
 
-    public String getCompanyName() { return companyName; }
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-    public double getCurrentPrice() { return currentPrice; }
-    public void setCurrentPrice(double currentPrice) { this.currentPrice = currentPrice; }
+    public double getLogReturns() {
+        return logReturns;
+    }
 
-    public double getVolatility() { return volatility; }
-    public void setVolatility(double volatility) { this.volatility = volatility; }
+    public void setLogReturns(double logReturns) {
+        this.logReturns = logReturns;
+    }
 
-    public double getAverageLogReturn() { return averageLogReturn; }
-    public void setAverageLogReturn(double averageLogReturn) { this.averageLogReturn = averageLogReturn; }
+    public double getVolatility() {
+        return volatility;
+    }
 
-    public int getPeriod() { return period; }
-    public void setPeriod(int period) { this.period = period; }
+    public void setVolatility(double volatility) {
+        this.volatility = volatility;
+    }
 
-    public List<Double> getLogReturns() { return logReturns; }
-    public void setLogReturns(List<Double> logReturns) { this.logReturns = logReturns; }
+    public String getPeriod() {
+        return period;
+    }
 
-    public List<String> getDates() { return dates; }
-    public void setDates(List<String> dates) { this.dates = dates; }
+    public void setPeriod(String period) {
+        this.period = period;
+    }
 
-    public List<Double> getClosePrices() { return closePrices; }
-    public void setClosePrices(List<Double> closePrices) { this.closePrices = closePrices; }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-    public String getError() { return error; }
-    public void setError(String error) { this.error = error; }
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

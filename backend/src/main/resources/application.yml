@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: stock-risk-dashboard
+  webflux:
+    base-path: /api
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    com.stockrisk: DEBUG
