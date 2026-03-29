@@ -1,8 +1,8 @@
 FROM openjdk:21-jdk
 
-WORKDIR /backend
+WORKDIR 
 
-COPY ./backend/target/stock-risk-dashboard.jar .
+COPY ./app/target/employee-directory.jar .
 
 # Expose the application port (change if necessary)
 EXPOSE 8080:8080

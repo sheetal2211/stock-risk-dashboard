@@ -2,3 +2,5 @@ node_modules
 target
 settings.json
 .gitkeep
+.claude/settings.local.json
+.claude/settings.json
