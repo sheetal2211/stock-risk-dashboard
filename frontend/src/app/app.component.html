@@ -1,0 +1,136 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <span class="navbar-brand fw-bold">
+      <i class="bi bi-graph-up-arrow me-2"></i>Stock Risk Dashboard
+    </span>
+  </div>
+</nav>
+
+<div class="container mt-4">
+
+  <!-- Search Form -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Analyze Stock Risk</h5>
+      <form (ngSubmit)="search()" class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label class="form-label">Stock Ticker</label>
+          <input
+            [(ngModel)]="ticker"
+            name="ticker"
+            type="text"
+            class="form-control"
+            placeholder="e.g. AAPL, MSFT, TSLA"
+            maxlength="10"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Period (trading days)</label>
+          <input
+            [(ngModel)]="period"
+            name="period"
+            type="number"
+            class="form-control"
+            min="10"
+            max="504"
+          />
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100" [disabled]="loading || !ticker.trim()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+            Analyze
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- Results -->
+  <div *ngIf="result">
+
+    <!-- Header -->
+    <div class="d-flex align-items-center mb-3">
+      <h4 class="mb-0 me-3">{{ result.companyName }}</h4>
+      <span class="badge fs-6" [ngClass]="riskBadgeClass">{{ riskLabel }} Risk</span>
+    </div>
+
+    <!-- Metrics Cards -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-3">
+        <div class="card text-center h-100 border-primary">
+          <div class="card-body">
+            <div class="text-muted small">Ticker</div>
+            <div class="fs-4 fw-bold text-primary">{{ result.ticker }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="text-muted small">Latest Price</div>
+            <div class="fs-4 fw-bold">${{ result.latestPrice | number:'1.2-2' }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="text-muted small">Annualized Volatility</div>
+            <div class="fs-4 fw-bold">{{ volatilityPercent }}</div>
+            <div class="text-muted x-small">σ × √252</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <div class="text-muted small">Avg Daily Log Return</div>
+            <div class="fs-4 fw-bold" [ngClass]="result.averageLogReturn >= 0 ? 'text-success' : 'text-danger'">
+              {{ avgReturnPercent }}
+            </div>
+            <div class="text-muted x-small">Period: {{ result.period }} days</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Log Returns Summary -->
+    <div class="card shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Daily Log Returns</span>
+        <small class="text-muted">Last {{ result.logReturns.length }} trading days</small>
+      </div>
+      <div class="card-body">
+        <!-- Mini bar chart using inline bars -->
+        <div class="d-flex flex-wrap gap-1" style="max-height: 120px; overflow: hidden;">
+          <div
+            *ngFor="let r of result.logReturns.slice(-60)"
+            class="rounded"
+            [ngClass]="r >= 0 ? 'bg-success' : 'bg-danger'"
+            [style.width.px]="6"
+            [style.height.px]="Math.max(4, Math.abs(r) * 2000)"
+            [title]="(r * 100 | number:'1.4-4') + '%'"
+          ></div>
+        </div>
+        <div class="mt-2 text-muted small">
+          Each bar represents a trading day. Green = positive return, Red = negative return.
+          Height proportional to magnitude.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
